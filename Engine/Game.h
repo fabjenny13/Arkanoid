@@ -23,6 +23,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Pad.h"
+#include "Ball.h"
 
 class Game
 {
@@ -42,5 +44,11 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	int leftBound = 50;
+	int rightBound = Graphics::ScreenWidth - 200;
+	int upBound = 50;
+	int downBound = Graphics::ScreenHeight - 200;
+	Pad pad;
+	Ball ball;
 	/********************************/
 };

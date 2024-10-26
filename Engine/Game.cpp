@@ -21,10 +21,12 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd )
+	wnd(wnd),
+	gfx(wnd),
+	pad({ (int)gfx.ScreenWidth / 2,(int)(gfx.ScreenHeight * 3) / 4 }, 30, 10, 2),
+	ball({ (int)gfx.ScreenWidth / 2,(int)(gfx.ScreenHeight * 3) / 4 - 20 }, { 0, -1 }, 10, 5)
 {
 }
 
@@ -38,8 +40,23 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	pad.KeepInBounds(leftBound, rightBound);
+	ball.KeepInBounds(leftBound, rightBound, upBound, downBound);
+	int input = 0;
+	if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	{
+		input = -1;
+	}
+	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	{
+		input = 1;
+	}
+	pad.Move(input);
+	ball.Move();
 }
 
 void Game::ComposeFrame()
 {
+	pad.Draw(gfx);
+	ball.Draw(gfx);
 }
