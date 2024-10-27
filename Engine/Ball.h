@@ -1,6 +1,7 @@
 #pragma once
 #include "Graphics.h"
 #include "Vec2.h"
+#include "Rect.h"
 
 class Ball
 {
@@ -10,10 +11,15 @@ private:
 	int speed;
 	int radius;
 	Color c = Colors::White;
+	Rect rect;
+
 public:
 	Ball() = default;
 	Ball(Vec2 pos, Vec2 vel, int radius, int speed);
 	void Draw(Graphics& gfx) const;
-	void KeepInBounds(int leftBound, int rightBound, int upBound, int downBound);
+	void ReboundX();
+	void ReboundY();
+	void DoWallCollision(Rect& walls);
 	void Move();
+	Rect& GetRect();
 };

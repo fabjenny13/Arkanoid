@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Pad.h"
 #include "Ball.h"
+#include "Brick.h"
 
 class Game
 {
@@ -44,11 +45,13 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	int leftBound = 50;
+	int leftBound = 200;
 	int rightBound = Graphics::ScreenWidth - 200;
 	int upBound = 50;
-	int downBound = Graphics::ScreenHeight - 200;
+	int downBound = Graphics::ScreenHeight - 50;
 	Pad pad;
 	Ball ball;
+	Brick brick;
+	Rect walls;
 	/********************************/
 };

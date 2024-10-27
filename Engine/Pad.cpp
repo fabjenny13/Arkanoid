@@ -3,32 +3,37 @@
 Pad::Pad(Vec2 pos, int width, int height, int speed)
 	:
 	pos(pos),
+	speed(speed),
 	width(width),
 	height(height),
-	speed(speed)
+	rect(pos, width, height)
 {
 }
 
 void Pad::Draw(Graphics& gfx)
 {
-	gfx.DrawRect(width, height, pos.x, pos.y, c);
+	gfx.DrawRect(rect, c);
 }
 
 void Pad::Move(int delta_x)
 {
 	pos.x += delta_x*speed;
+	rect.left = pos.x - width / 2;
+	rect.right = pos.x + height / 2;
 }
 
-void Pad::KeepInBounds(int leftBound, int rightBound)
+void Pad::KeepInBounds(Rect& walls)
 {
-	if(pos.x <= leftBound)
+	if(pos.x <= walls.left)
 	{
-		pos.x = leftBound;
+		pos.x = walls.left;
 	}
-	else if (pos.x >= rightBound)
+	else if (pos.x >= walls.right)
 	{
-		pos.x = rightBound;
+		pos.x = walls.right;
 	}
+	rect.left = pos.x - width / 2;
+	rect.right = pos.x + height / 2;
 }
 
 
