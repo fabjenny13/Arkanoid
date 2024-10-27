@@ -1,18 +1,17 @@
 #pragma once
 #include "Vec2.h"
-#include "Graphics.h"
 
 class Rect
 {
 public:
-	const int left;
-	const int right;
-	const int up;
-	const int down;
+	int left;
+	int right;
+	int up;
+	int down;
 public:
+	Rect() = default;
 	Rect(int left, int right, int up, int down);
 	Rect(Vec2 mid_pos, int width, int height);
-	
-	bool isOverLapping(Rect& other);
+	bool isOverLapping(Rect& other) const;
 };
 

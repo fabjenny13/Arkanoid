@@ -18,7 +18,7 @@ Rect::Rect(Vec2 mid_pos, int width, int height)
 {
 }
 
-bool Rect::isOverLapping(Rect& other)
+bool Rect::isOverLapping(Rect& other) const
 {
     return (left<=other.right && right >= other.right && up <= other.down && down >= other.up);
 }
