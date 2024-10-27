@@ -1,4 +1,5 @@
 #include "Pad.h"
+#include <iostream>
 
 Pad::Pad(Vec2 pos, int width, int height, int speed)
 	:
@@ -34,6 +35,15 @@ void Pad::KeepInBounds(Rect& walls)
 	}
 	rect.left = pos.x - width / 2;
 	rect.right = pos.x + height / 2;
+}
+
+void Pad::DoBallCollision(Ball& ball)
+{
+	if (ball.GetRect().isOverLapping(rect))
+	{
+		std::cout << "Collided." << std::endl;
+		ball.ReboundY();
+	}
 }
 
 

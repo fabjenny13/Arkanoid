@@ -2,6 +2,7 @@
 #include "Graphics.h"
 #include "Vec2.h"
 #include "Rect.h"
+#include "Ball.h"
 
 class Pad
 {
@@ -18,5 +19,7 @@ public:
 	void Draw(Graphics& gfx);
 	void Move(int delta_x);
 	void KeepInBounds(Rect& walls);
+	void DoBallCollision(Ball& ball);
+	
 };
 
