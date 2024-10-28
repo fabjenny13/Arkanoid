@@ -8,14 +8,14 @@ class Ball
 private:
 	Vec2 pos;
 	Vec2 vel;
-	int speed;
-	int radius;
+	float speed;
+	float radius;
 	Color c = Colors::White;
 	Rect rect;
 
 public:
 	Ball() = default;
-	Ball(Vec2 pos, Vec2 vel, int radius, int speed);
+	Ball(Vec2 pos, Vec2 vel, float radius, float speed);
 	void Draw(Graphics& gfx) const;
 	void ReboundX();
 	void ReboundY();

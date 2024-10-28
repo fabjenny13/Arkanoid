@@ -1,7 +1,7 @@
 #include "Pad.h"
 #include <iostream>
 
-Pad::Pad(Vec2 pos, int width, int height, int speed)
+Pad::Pad(Vec2 pos, float width, float height, float speed)
 	:
 	pos(pos),
 	speed(speed),
@@ -16,7 +16,7 @@ void Pad::Draw(Graphics& gfx)
 	gfx.DrawRect(rect, c);
 }
 
-void Pad::Move(int delta_x, float dt)
+void Pad::Move(float delta_x, float dt)
 {
 	pos.x += delta_x * speed * dt;
 

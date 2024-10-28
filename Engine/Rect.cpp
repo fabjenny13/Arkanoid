@@ -1,6 +1,6 @@
 #include "Rect.h"
 
-Rect::Rect(int left, int right, int up, int down)
+Rect::Rect(float left, float right, float up, float down)
     :
     left(left),
     right(right),
@@ -9,7 +9,7 @@ Rect::Rect(int left, int right, int up, int down)
 {
 }
 
-Rect::Rect(Vec2 mid_pos, int width, int height)
+Rect::Rect(Vec2 mid_pos, float width, float height)
     :
     left(mid_pos.x - width/2),
     right(mid_pos.x + width/2),

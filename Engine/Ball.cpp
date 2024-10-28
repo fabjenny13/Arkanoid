@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-Ball::Ball(Vec2 pos, Vec2 vel, int radius, int speed)
+Ball::Ball(Vec2 pos, Vec2 vel, float radius, float speed)
 	:
 	pos(pos),
 	vel(vel),

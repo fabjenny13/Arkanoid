@@ -11,12 +11,12 @@ private:
 	Color c;
 	Rect rect;
 	Vec2 pos;
-	int width;
-	int height;
+	float width;
+	float height;
 	bool destroyed = false;
 
 public:
-	Brick(Vec2 pos, int width, int height, Color c);
+	Brick(Vec2 pos, float width, float height, Color c);
 	void Draw(Graphics& gfx);
 	void DoBallCollision(Ball& ball);
 };

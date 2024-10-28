@@ -4,14 +4,14 @@
 class Rect
 {
 public:
-	int left;
-	int right;
-	int up;
-	int down;
+	float left;
+	float right;
+	float up;
+	float down;
 public:
 	Rect() = default;
-	Rect(int left, int right, int up, int down);
-	Rect(Vec2 mid_pos, int width, int height);
+	Rect(float left, float right, float up, float down);
+	Rect(Vec2 mid_pos, float width, float height);
 	bool isOverLapping(Rect& other) const;
 };
 

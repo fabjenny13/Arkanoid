@@ -1,6 +1,6 @@
 #include "Brick.h"
 
-Brick::Brick(Vec2 pos, int width, int height, Color c)
+Brick::Brick(Vec2 pos, float width, float height, Color c)
 	:
 	pos(pos),
 	rect(pos, width, height),

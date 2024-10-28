@@ -25,9 +25,9 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	pad({ (int)gfx.ScreenWidth / 2,(int)(gfx.ScreenHeight * 3) / 4 }, 80, 10, 5),
-	ball({ (int)gfx.ScreenWidth / 2,(int)(gfx.ScreenHeight * 3) / 4 - 20 }, { 1, 1 }, 10, 5),
-	brick({ (int)gfx.ScreenWidth / 2,100}, 50,20,Colors::Green),
+	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 80.0f, 10.0f, 200.0f),
+	ball({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f - 20.0f }, { 1.0f, 1.0f }, 10.0f, 200.0f),
+	brick({ gfx.ScreenWidth / 2.0f,100.0f}, 50.0f,20.0f,Colors::Green),
 	walls(leftBound, rightBound, upBound, downBound)
 {
 }
@@ -49,14 +49,14 @@ void Game::UpdateModel()
 	pad.DoBallCollision(ball);
 	ball.Move(dt);
 
-	int input = 0;
+	int input = 0.0f;
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
-		input = -1;
+		input = -1.0f;
 	}
 	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
-		input = 1;
+		input = 1.0f;
 	}
 	pad.Move(input, dt);
 

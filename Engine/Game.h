@@ -47,10 +47,10 @@ private:
 	/********************************/
 	/*  User Variables              */
 	FrameTimer ft;
-	int leftBound = 200;
-	int rightBound = Graphics::ScreenWidth - 200;
-	int upBound = 50;
-	int downBound = Graphics::ScreenHeight - 50;
+	float leftBound = 200.0f;
+	float rightBound = (float)Graphics::ScreenWidth - 200.0f;
+	float upBound = 50.0f;
+	float downBound = (float)Graphics::ScreenHeight - 50.0f;
 	Pad pad;
 	Ball ball;
 	Brick brick;

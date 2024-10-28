@@ -2,15 +2,15 @@
 class Vec2
 {
 public:
-	int x;
-	int y;
+	float x;
+	float y;
 public:
 	Vec2() = default;
-	Vec2(int x, int y);
+	Vec2(float x, float y);
 	Vec2 operator+(Vec2& rhs) const;
 	Vec2& operator+=(Vec2& rhs);
-	Vec2 operator*(int rhs) const;
-	Vec2& operator*=(int rhs);
+	Vec2 operator*(float rhs) const;
+	Vec2& operator*=(float rhs);
 
 };
 
