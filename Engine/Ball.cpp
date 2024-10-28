@@ -27,10 +27,11 @@ void Ball::DoWallCollision(Rect& walls)
 	}
 }
 
-void Ball::Move()
+void Ball::Move(float dt)
 {
-	pos.x += vel.x*speed;
-	pos.y += vel.y * speed;
+	pos.x += vel.x * speed * dt;
+	pos.y += vel.y * speed * dt;
+
 	rect.left = pos.x - radius / 2;
 	rect.right = pos.x + radius / 2;
 	rect.up = pos.y - radius / 2;

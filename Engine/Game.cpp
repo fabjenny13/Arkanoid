@@ -42,11 +42,12 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = ft.Mark();
 	pad.KeepInBounds(walls);
 	ball.DoWallCollision(walls);
 	brick.DoBallCollision(ball);
 	pad.DoBallCollision(ball);
-	ball.Move();
+	ball.Move(dt);
 
 	int input = 0;
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
@@ -57,13 +58,13 @@ void Game::UpdateModel()
 	{
 		input = 1;
 	}
-	pad.Move(input);
+	pad.Move(input, dt);
 
 }
 
 void Game::ComposeFrame()
 {
-	pad.Draw(gfx);
 	ball.Draw(gfx);
+	pad.Draw(gfx);
 	brick.Draw(gfx);
 }

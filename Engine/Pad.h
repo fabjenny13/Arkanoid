@@ -17,7 +17,7 @@ public:
 	Pad() = default;
 	Pad(Vec2 pos, int width, int height, int speed);
 	void Draw(Graphics& gfx);
-	void Move(int delta_x);
+	void Move(int delta_x, float dt);
 	void KeepInBounds(Rect& walls);
 	void DoBallCollision(Ball& ball);
 	

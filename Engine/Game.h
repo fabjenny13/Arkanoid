@@ -26,6 +26,7 @@
 #include "Pad.h"
 #include "Ball.h"
 #include "Brick.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -45,6 +46,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	FrameTimer ft;
 	int leftBound = 200;
 	int rightBound = Graphics::ScreenWidth - 200;
 	int upBound = 50;

@@ -16,9 +16,10 @@ void Pad::Draw(Graphics& gfx)
 	gfx.DrawRect(rect, c);
 }
 
-void Pad::Move(int delta_x)
+void Pad::Move(int delta_x, float dt)
 {
-	pos.x += delta_x*speed;
+	pos.x += delta_x * speed * dt;
+
 	rect.left = pos.x - width / 2;
 	rect.right = pos.x + height / 2;
 }

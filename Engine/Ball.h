@@ -20,6 +20,6 @@ public:
 	void ReboundX();
 	void ReboundY();
 	void DoWallCollision(Rect& walls);
-	void Move();
+	void Move(float dt);
 	Rect& GetRect();
 };
