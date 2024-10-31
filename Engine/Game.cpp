@@ -25,12 +25,12 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 100.0f, 20.0f, 200.0f),
+	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 100.0f, 20.0f, 300.0f),
 	ball({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f - 20.0f }, { -300.0f, 300.0f }),
 	walls(leftBound, rightBound, upBound, downBound)
 {
 	Color colours[nRows] = { Colors::Red, Colors::Green, Colors::Cyan, Colors::Magenta };
-	Vec2 topLeft = { leftBound, upBound };
+	Vec2 topLeft = { leftBound, upBound + 2*brickHeight };
 	for (int y = 0; y < nRows; y++)
 	{
 		Color c = colours[y];

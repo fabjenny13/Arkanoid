@@ -1,5 +1,4 @@
 #include "Pad.h"
-#include <iostream>
 
 Pad::Pad(Vec2 pos, float width, float height, float speed)
 	:
@@ -37,9 +36,8 @@ Rect Pad::GetRect() const
 
 void Pad::DoBallCollision(Ball& ball)
 {
-	if (ball.GetRect().isOverLapping(GetRect()))
+	if (ball.GetVelocity().y > 0 && ball.GetRect().isOverLapping(GetRect()))
 	{
-		std::cout << "Collided." << std::endl;
 		ball.ReboundY();
 	}
 }

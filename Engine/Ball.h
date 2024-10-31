@@ -20,4 +20,5 @@ public:
 	void DoWallCollision(Rect& walls);
 	void Update(float dt);
 	Rect GetRect() const;
+	Vec2 GetVelocity() const;
 };

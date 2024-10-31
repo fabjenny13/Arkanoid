@@ -50,6 +50,11 @@ Rect Ball::GetRect() const
 	return Rect::FromCenter(pos, radius, radius);
 }
 
+Vec2 Ball::GetVelocity() const
+{
+	return vel;
+}
+
 void Ball::ReboundX()
 {
 	vel.x = -vel.x;
