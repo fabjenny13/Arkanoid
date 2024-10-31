@@ -18,6 +18,6 @@ public:
 	void ReboundX();
 	void ReboundY();
 	void DoWallCollision(Rect& walls);
-	void Move(float dt);
-	Rect& GetRect();
+	void Update(float dt);
+	Rect GetRect() const;
 };

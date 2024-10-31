@@ -16,30 +16,38 @@ void Ball::Draw(Graphics& gfx) const
 
 void Ball::DoWallCollision(Rect& walls)
 {
-	if (pos.x <= walls.left || pos.x >= walls.right)
+	const Rect rect = GetRect();
+	if (rect.left <= walls.left)
 	{
+		pos.x += walls.left - rect.left;
 		ReboundX();
 	}
-	if (pos.y >= walls.down || pos.y <= walls.up)
+	else if (rect.right >= walls.right)
 	{
+		pos.x -= rect.right - walls.right;
+		ReboundY();
+	}
+	else if (rect.down >= walls.down)
+	{
+		pos.y -= rect.down - walls.down;
+		ReboundY();
+	}
+	else if (rect.right <= walls.up)
+	{
+		pos.y += walls.up - rect.up;
 		ReboundY();
 	}
 }
 
-void Ball::Move(float dt)
+void Ball::Update(float dt)
 {
 	pos.x += vel.x * dt;
 	pos.y += vel.y * dt;
-
-	rect.left = pos.x - radius / 2;
-	rect.right = pos.x + radius / 2;
-	rect.up = pos.y - radius / 2;
-	rect.down = pos.y + radius / 2;
 }
 
-Rect& Ball::GetRect()
+Rect Ball::GetRect() const
 {
-	return rect;
+	return Rect::FromCenter(pos, radius, radius);
 }
 
 void Ball::ReboundX()

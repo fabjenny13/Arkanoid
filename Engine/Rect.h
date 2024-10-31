@@ -14,5 +14,6 @@ public:
 	Rect(Vec2 mid_pos, float width, float height);
 	Rect GetExpanded(float offset) const;
 	bool isOverLapping(Rect& other) const;
+	static Rect FromCenter(Vec2 pos, float width, float height);
 };
 

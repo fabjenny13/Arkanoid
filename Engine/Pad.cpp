@@ -13,54 +13,50 @@ Pad::Pad(Vec2 pos, float width, float height, float speed)
 
 void Pad::Draw(Graphics& gfx)
 {
-	gfx.DrawRect(rect, c);
-}
-
-void Pad::Move(float delta_x, float dt)
-{
-	pos.x += delta_x * speed * dt;
-
-	rect.left = pos.x - width / 2;
-	rect.right = pos.x + height / 2;
+	gfx.DrawRect(GetRect(), c);
 }
 
 void Pad::KeepInBounds(Rect& walls)
 {
-	if(pos.x <= walls.left)
+	if(GetRect().left <= walls.left)
 	{
-		pos.x = walls.left;
+		pos.x = walls.left + width / 2;
 	}
-	else if (pos.x >= walls.right)
+	else if (GetRect().right >= walls.right)
 	{
-		pos.x = walls.right;
+		pos.x = walls.right - width / 2;
 	}
-	rect.left = pos.x - width / 2;
-	rect.right = pos.x + height / 2;
+
+}
+
+Rect Pad::GetRect() const
+{
+	return Rect::FromCenter(pos, width, height);
+
 }
 
 void Pad::DoBallCollision(Ball& ball)
 {
-	if (ball.GetRect().isOverLapping(rect))
+	if (ball.GetRect().isOverLapping(GetRect()))
 	{
 		std::cout << "Collided." << std::endl;
 		ball.ReboundY();
 	}
 }
 
-void Pad::Update(MainWindow& wnd, float dt, Rect& walls)
+void Pad::Update(MainWindow& wnd, float dt)
 {
-	int input = 0.0f;
+	float input = 0.0f;
 
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
-		input = -1.0f;
+		pos.x -= speed * dt;
 	}
 	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
-		input = 1.0f;
+		pos.x += speed * dt;
 	}
-	Move(input, dt);
-	KeepInBounds(walls);
+
 }
 
 

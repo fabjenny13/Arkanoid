@@ -27,3 +27,8 @@ bool Rect::isOverLapping(Rect& other) const
 {
     return (left<=other.right && right >= other.right && up <= other.down && down >= other.up);
 }
+
+Rect Rect::FromCenter(Vec2 pos, float width, float height)
+{
+    return Rect(pos, width, height);
+}

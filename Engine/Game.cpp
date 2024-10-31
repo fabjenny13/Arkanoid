@@ -25,7 +25,7 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 120.0f, 20.0f, 200.0f),
+	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 100.0f, 20.0f, 200.0f),
 	ball({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f - 20.0f }, { 300.0f, 300.0f }),
 	walls(leftBound, rightBound, upBound, downBound)
 {
@@ -57,13 +57,15 @@ void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
 
+	ball.DoWallCollision(walls);
+	ball.Update(dt);
 	for (Brick& b : bricks)
 	{
 		b.DoBallCollision(ball);
 	}
-	ball.Move(dt);
-	ball.DoWallCollision(walls);
-	pad.Update(wnd, dt, walls);
+
+	pad.Update(wnd, dt);
+	pad.KeepInBounds(walls);
 	pad.DoBallCollision(ball);
 
 }

@@ -19,10 +19,8 @@ public:
 	Pad(Vec2 pos, float width, float height, float speed);
 	void Draw(Graphics& gfx);
 	void DoBallCollision(Ball& ball);
-	void Update(MainWindow& wnd, float dt, Rect& walls);
-private:
-	void Move(float delta_x, float dt);
+	void Update(MainWindow& wnd, float dt);
 	void KeepInBounds(Rect& walls);
-	
+	Rect GetRect() const;
 };
 
