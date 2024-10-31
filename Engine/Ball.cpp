@@ -25,14 +25,14 @@ void Ball::DoWallCollision(Rect& walls)
 	else if (rect.right >= walls.right)
 	{
 		pos.x -= rect.right - walls.right;
-		ReboundY();
+		ReboundX();
 	}
 	else if (rect.down >= walls.down)
 	{
 		pos.y -= rect.down - walls.down;
 		ReboundY();
 	}
-	else if (rect.right <= walls.up)
+	else if (rect.up <= walls.up)
 	{
 		pos.y += walls.up - rect.up;
 		ReboundY();

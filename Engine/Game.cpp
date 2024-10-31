@@ -26,7 +26,7 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 100.0f, 20.0f, 200.0f),
-	ball({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f - 20.0f }, { 300.0f, 300.0f }),
+	ball({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f - 20.0f }, { -300.0f, 300.0f }),
 	walls(leftBound, rightBound, upBound, downBound)
 {
 	Color colours[nRows] = { Colors::Red, Colors::Green, Colors::Cyan, Colors::Magenta };
@@ -57,8 +57,8 @@ void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
 
-	ball.DoWallCollision(walls);
 	ball.Update(dt);
+	ball.DoWallCollision(walls);
 	for (Brick& b : bricks)
 	{
 		b.DoBallCollision(ball);
