@@ -10,11 +10,11 @@ Brick::Brick(Vec2 pos, float width, float height, Color c)
 {
 }
 
-void Brick::Draw(Graphics& gfx)
+void Brick::Draw(Graphics& gfx) const
 {
 	if (!destroyed)
 	{
-		gfx.DrawRect(rect, c);
+		gfx.DrawRect(rect.GetExpanded(-padding), c);
 	}
 }
 

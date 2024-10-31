@@ -12,6 +12,7 @@ public:
 	Rect() = default;
 	Rect(float left, float right, float up, float down);
 	Rect(Vec2 mid_pos, float width, float height);
+	Rect GetExpanded(float offset) const;
 	bool isOverLapping(Rect& other) const;
 };
 

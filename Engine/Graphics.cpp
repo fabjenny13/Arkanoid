@@ -351,7 +351,7 @@ void Graphics::DrawRect(int width, int height, int x, int y, Color c)
 	}
 }
 
-void Graphics::DrawRect(Rect& rect, Color c)
+void Graphics::DrawRect(const Rect& rect, const Color c)
 {
 	DrawRect(rect.right - rect.left, rect.down - rect.up, (rect.left + rect.right) / 2, (rect.up + rect.down) / 2, c);
 }

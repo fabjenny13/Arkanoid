@@ -25,11 +25,24 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 80.0f, 10.0f, 200.0f),
-	ball({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f - 20.0f }, { 1.0f, 1.0f }, 10.0f, 200.0f),
-	brick({ gfx.ScreenWidth / 2.0f,100.0f}, 50.0f,20.0f,Colors::Green),
+	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 120.0f, 20.0f, 200.0f),
+	ball({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f - 20.0f }, { 300.0f, 300.0f }),
 	walls(leftBound, rightBound, upBound, downBound)
 {
+	Color colours[nRows] = { Colors::Red, Colors::Green, Colors::Cyan, Colors::Magenta };
+	Vec2 topLeft = { leftBound, upBound };
+	for (int y = 0; y < nRows; y++)
+	{
+		Color c = colours[y];
+		for (int x = 0; x < nCols; x++)
+		{
+			Vec2 newTopLeft = { topLeft.x + x*brickWidth, topLeft.y + y*brickHeight };
+			Vec2 newMid = { newTopLeft.x + brickWidth / 2, newTopLeft.y + brickHeight / 2 };
+			bricks[y * nCols + x] = Brick(newMid, brickWidth, brickHeight, c);
+		}
+	}
+
+
 }
 
 void Game::Go()
@@ -43,22 +56,15 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
-	pad.KeepInBounds(walls);
-	ball.DoWallCollision(walls);
-	brick.DoBallCollision(ball);
-	pad.DoBallCollision(ball);
-	ball.Move(dt);
 
-	int input = 0.0f;
-	if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	for (Brick& b : bricks)
 	{
-		input = -1.0f;
+		b.DoBallCollision(ball);
 	}
-	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
-	{
-		input = 1.0f;
-	}
-	pad.Move(input, dt);
+	ball.Move(dt);
+	ball.DoWallCollision(walls);
+	pad.Update(wnd, dt, walls);
+	pad.DoBallCollision(ball);
 
 }
 
@@ -66,5 +72,9 @@ void Game::ComposeFrame()
 {
 	ball.Draw(gfx);
 	pad.Draw(gfx);
-	brick.Draw(gfx);
+	for (const Brick& b : bricks)
+	{
+		b.Draw(gfx);
+	}
+
 }

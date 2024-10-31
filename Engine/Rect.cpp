@@ -18,6 +18,11 @@ Rect::Rect(Vec2 mid_pos, float width, float height)
 {
 }
 
+Rect Rect::GetExpanded(float offset) const
+{
+    return Rect(left - offset, right + offset, up - offset, down + offset);
+}
+
 bool Rect::isOverLapping(Rect& other) const
 {
     return (left<=other.right && right >= other.right && up <= other.down && down >= other.up);

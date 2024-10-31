@@ -47,13 +47,18 @@ private:
 	/********************************/
 	/*  User Variables              */
 	FrameTimer ft;
-	float leftBound = 200.0f;
-	float rightBound = (float)Graphics::ScreenWidth - 200.0f;
-	float upBound = 50.0f;
-	float downBound = (float)Graphics::ScreenHeight - 50.0f;
+	static constexpr float leftBound = 10.0f;
+	static constexpr float rightBound = (float)Graphics::ScreenWidth - 10.0f;
+	static constexpr float upBound = 50.0f;
+	static constexpr float downBound = (float)Graphics::ScreenHeight - 50.0f;
 	Pad pad;
 	Ball ball;
-	Brick brick;
+	static constexpr float brickWidth = 60.0f;
+	static constexpr float brickHeight = 20.0f;
+	static constexpr int nRows = 4;
+	static constexpr int nCols = (int)((rightBound - leftBound) / brickWidth);
+	static constexpr int nBricks = nRows * nCols;
+	Brick bricks[nBricks];
 	Rect walls;
 	/********************************/
 };

@@ -47,4 +47,20 @@ void Pad::DoBallCollision(Ball& ball)
 	}
 }
 
+void Pad::Update(MainWindow& wnd, float dt, Rect& walls)
+{
+	int input = 0.0f;
+
+	if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	{
+		input = -1.0f;
+	}
+	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	{
+		input = 1.0f;
+	}
+	Move(input, dt);
+	KeepInBounds(walls);
+}
+
 
