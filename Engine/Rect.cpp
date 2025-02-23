@@ -32,3 +32,8 @@ Rect Rect::FromCenter(Vec2 pos, float width, float height)
 {
     return Rect(pos, width, height);
 }
+
+Vec2 Rect::GetCenter() const
+{
+    return  Vec2((left + right) / 2.0f, (up + down) / 2.0f);
+}

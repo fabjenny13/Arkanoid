@@ -353,7 +353,19 @@ void Graphics::DrawRect(int width, int height, int x, int y, Color c)
 
 void Graphics::DrawRect(const Rect& rect, const Color c)
 {
-	DrawRect(rect.right - rect.left, rect.down - rect.up, (rect.left + rect.right) / 2, (rect.up + rect.down) / 2, c);
+	DrawRect(rect.right - rect.left, rect.down - rect.up, (rect.left + rect.right) / 2.0f, (rect.up + rect.down) / 2.0f, c);
+}
+
+Rect& Graphics::GetScreenRect()
+{
+	Rect ScreenRect = Rect(0, ScreenWidth, 0, ScreenHeight);
+	return(ScreenRect);
+}
+
+Vec2& Graphics::GetCenter()
+{
+	return Vec2(ScreenWidth / 2, ScreenHeight / 2);
+	// TODO: insert return statement here
 }
 
 

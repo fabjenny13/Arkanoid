@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "SpriteCodex.h"
 
 Game::Game(MainWindow& wnd)
 	:
@@ -48,35 +49,103 @@ Game::Game(MainWindow& wnd)
 void Game::Go()
 {
 	gfx.BeginFrame();	
-	UpdateModel();
+	float elapsedTime = ft.Mark();
+	while (elapsedTime > 0)
+	{
+		const float dt = std::min(0.0025f, elapsedTime);
+		UpdateModel(dt);
+
+		elapsedTime -= dt;
+	}
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float dt)
 {
-	const float dt = ft.Mark();
 
-	ball.Update(dt);
-	ball.DoWallCollision(walls);
-	for (Brick& b : bricks)
+	if (!gameStarted)
 	{
-		b.DoBallCollision(ball);
+		if (wnd.kbd.KeyIsPressed(VK_RETURN))
+		{
+			gameStarted = true;
+		}
 	}
 
-	pad.Update(wnd, dt);
-	pad.KeepInBounds(walls);
-	pad.DoBallCollision(ball);
+	else if(!gameEnded)
+	{
 
+		if (ball.GetRect().down >= walls.down)
+		{
+			gameEnded = true;
+		}
+		else
+		{
+			ball.Update(dt);
+			ball.DoWallCollision(walls);
+
+			bool collisionHappened = false;
+			float curColDist;
+			int curColIndex;
+
+
+			for (int i = 0; i < nBricks; i++)
+			{
+				if (bricks[i].CheckCollision(ball))
+				{
+					const float newColDist = (bricks[i].GetCenter() - ball.GetPosition()).GetLengthSq();
+					if (collisionHappened)
+					{
+						if (newColDist < curColDist)
+						{
+							curColDist = newColDist;
+							curColIndex = i;
+
+						}
+
+					}
+					else
+					{
+						collisionHappened = true;
+						curColDist = newColDist;
+						curColIndex = i;
+					}
+				}
+			}
+
+			if (collisionHappened)
+			{
+				bricks[curColIndex].ExecuteBallCollision(ball);
+			}
+
+			pad.Update(wnd, dt);
+			pad.KeepInBounds(walls);
+			pad.DoBallCollision(ball);
+		}
+	}
 }
 
 void Game::ComposeFrame()
 {
-	ball.Draw(gfx);
-	pad.Draw(gfx);
-	for (const Brick& b : bricks)
+	if (!gameStarted)
 	{
-		b.Draw(gfx);
+		SpriteCodex::DrawTitle(gfx.GetCenter(), gfx);
+	}
+	else
+	{
+		ball.Draw(gfx);
+		pad.Draw(gfx);
+		SpriteCodex::DrawBorders(walls, gfx);
+
+		for (const Brick& b : bricks)
+		{
+			b.Draw(gfx);
+		}
+	}
+
+	if (gameEnded)
+	{
+		SpriteCodex::DrawGameOver(gfx.GetCenter(), gfx);
 	}
 
 }

@@ -21,4 +21,5 @@ public:
 	void Update(float dt);
 	Rect GetRect() const;
 	Vec2 GetVelocity() const;
+	Vec2 GetPosition() const;
 };

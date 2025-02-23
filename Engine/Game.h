@@ -37,7 +37,7 @@ public:
 	void Go();
 private:
 	void ComposeFrame();
-	void UpdateModel();
+	void UpdateModel(float dt);
 	/********************************/
 	/*  User Functions              */
 	/********************************/
@@ -60,5 +60,8 @@ private:
 	static constexpr int nBricks = nRows * nCols;
 	Brick bricks[nBricks];
 	Rect walls;
+
+	bool gameStarted = false;
+	bool gameEnded = false;
 	/********************************/
 };

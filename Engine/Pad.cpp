@@ -38,7 +38,14 @@ void Pad::DoBallCollision(Ball& ball)
 {
 	if (ball.GetVelocity().y > 0 && ball.GetRect().isOverLapping(GetRect()))
 	{
-		ball.ReboundY();
+		if (ball.GetRect().left <= GetRect().left || ball.GetRect().right >= GetRect().right)
+		{
+			ball.ReboundX();
+		}
+		else
+		{
+			ball.ReboundY();
+		}
 	}
 }
 

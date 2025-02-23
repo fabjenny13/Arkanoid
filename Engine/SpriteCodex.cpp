@@ -27981,3 +27981,28 @@ void SpriteCodex::DrawPoo(const Vec2& center, Graphics& gfx)
 	gfx.PutPixel(5 + x_int, 23 + y_int, 51, 28, 0);
 	gfx.PutPixel(6 + x_int, 23 + y_int, 51, 28, 0);
 }
+
+void SpriteCodex::DrawBorders(const Rect& rect, Graphics& gfx)
+{
+	float left = rect.left;
+	float right = rect.right;
+	float top = rect.up;
+	float bottom = rect.down;
+	int borderWidth = 3;
+
+	for (int lines = 0; lines < borderWidth; lines++)
+	{
+		for (int i = 0; i < right - left; i++)
+		{
+			gfx.PutPixel(left + i, top - lines, 0, 0, 255);
+			gfx.PutPixel(left + i, bottom + lines, 0, 0, 255);
+		}
+
+
+		for (int i = 0; i < bottom - top; i++)
+		{
+			gfx.PutPixel(left - lines, top + i, 0, 0, 255);
+			gfx.PutPixel(right + lines, top + i, 0, 0, 255);
+		}
+	}
+}

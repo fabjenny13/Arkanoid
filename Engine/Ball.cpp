@@ -55,6 +55,11 @@ Vec2 Ball::GetVelocity() const
 	return vel;
 }
 
+Vec2 Ball::GetPosition() const
+{
+	return pos;
+}
+
 void Ball::ReboundX()
 {
 	vel.x = -vel.x;
