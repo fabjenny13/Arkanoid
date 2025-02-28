@@ -26,11 +26,16 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f }, 100.0f, 20.0f, 300.0f),
-	ball({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 3.0f) / 4.0f - 20.0f }, { -300.0f, 300.0f }),
-	walls(leftBound, rightBound, upBound, downBound)
+	pad({ gfx.ScreenWidth / 2.0f,(gfx.ScreenHeight * 5.0f) / 6.0f }, 80, 15.0f, 350.0f),
+	ball({ gfx.ScreenWidth / 2.0f,((gfx.ScreenHeight * 3.0f) / 4.0f) - 30.0f }, { 0.0f, 1.0f }),
+	walls(leftBound, rightBound, upBound, downBound),
+	brickHitSound(L"arkbrick.wav"),
+	padHitSound(L"arkpad.wav"),
+	readySound(L"ready.wav"),
+	gameOverSound(L"fart.wav")
+
 {
-	Color colours[nRows] = { Colors::Red, Colors::Green, Colors::Cyan, Colors::Magenta };
+	Color colours[nRows] = { Colors::Red, Colors::Green, Colors::Cyan, Colors::Magenta, Colors::Blue };
 	Vec2 topLeft = { leftBound, upBound + 2*brickHeight };
 	for (int y = 0; y < nRows; y++)
 	{
@@ -64,20 +69,30 @@ void Game::Go()
 void Game::UpdateModel(float dt)
 {
 
-	if (!gameStarted)
+	if (gameState == GameState::gameStart)
 	{
 		if (wnd.kbd.KeyIsPressed(VK_RETURN))
 		{
-			gameStarted = true;
+			gameState = GameState::gamePlaying;
 		}
 	}
-
-	else if(!gameEnded)
+	else if(gameState == GameState::gamePlaying)
 	{
-
 		if (ball.GetRect().down >= walls.down)
 		{
-			gameEnded = true;
+			if (--nLives <= 0)
+			{
+				gameState = GameState::gameOver;
+			}
+			else 
+			{
+				ball.ResetPosition();
+				ball.SetDirection(Vec2(0.0f, 1.0f));
+				pad.ResetPosition();
+				gameState = GameState::getReady;
+			}
+
+			
 		}
 		else
 		{
@@ -85,8 +100,8 @@ void Game::UpdateModel(float dt)
 			ball.DoWallCollision(walls);
 
 			bool collisionHappened = false;
-			float curColDist;
-			int curColIndex;
+			float curColDist = -1;
+			int curColIndex = -1;
 
 
 			for (int i = 0; i < nBricks; i++)
@@ -123,29 +138,53 @@ void Game::UpdateModel(float dt)
 			pad.DoBallCollision(ball);
 		}
 	}
+	else if (gameState == GameState::getReady)
+	{
+		if (currWaitedTime > getReadyTime)
+		{
+			currWaitedTime = 0.0f;
+			gameState = GameState::gamePlaying;
+		}
+		else
+		{
+			currWaitedTime += dt;
+		}
+	}
 }
 
 void Game::ComposeFrame()
 {
-	if (!gameStarted)
+	if (gameState == GameState::gameStart)
 	{
 		SpriteCodex::DrawTitle(gfx.GetCenter(), gfx);
 	}
 	else
 	{
-		ball.Draw(gfx);
+		for (int i = 0; i < nLives - 1; i++)
+		{
+			SpriteCodex::DrawPoo(Vec2(25.0f + i * 24.0f, 25.0f), gfx);
+		}
 		pad.Draw(gfx);
+		ball.Draw(gfx);
 		SpriteCodex::DrawBorders(walls, gfx);
 
 		for (const Brick& b : bricks)
 		{
 			b.Draw(gfx);
 		}
+
+
+
+		if (gameState == GameState::gameOver)
+		{
+			SpriteCodex::DrawGameOver(gfx.GetCenter(), gfx);
+		}
+		else if (gameState == GameState::getReady)
+		{
+			SpriteCodex::DrawReady(gfx.GetCenter(), gfx);
+		}
+
 	}
 
-	if (gameEnded)
-	{
-		SpriteCodex::DrawGameOver(gfx.GetCenter(), gfx);
-	}
 
 }

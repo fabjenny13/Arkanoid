@@ -27,6 +27,7 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "FrameTimer.h"
+#include "Sound.h"
 
 class Game
 {
@@ -46,22 +47,41 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	enum GameState
+	{
+		gameStart = 0,
+		gamePlaying = 1,
+		gameOver = 2,
+		getReady = 3
+	};
+
+
 	FrameTimer ft;
-	static constexpr float leftBound = 10.0f;
-	static constexpr float rightBound = (float)Graphics::ScreenWidth - 10.0f;
+	static constexpr float leftBound = 150.0f;
+	static constexpr float rightBound = (float)Graphics::ScreenWidth - leftBound;
 	static constexpr float upBound = 50.0f;
-	static constexpr float downBound = (float)Graphics::ScreenHeight - 50.0f;
+	static constexpr float downBound = (float)Graphics::ScreenHeight - upBound;
 	Pad pad;
 	Ball ball;
-	static constexpr float brickWidth = 60.0f;
+	static constexpr float brickWidth = 50.0f;
 	static constexpr float brickHeight = 20.0f;
-	static constexpr int nRows = 4;
+	static constexpr int nRows = 5;
 	static constexpr int nCols = (int)((rightBound - leftBound) / brickWidth);
 	static constexpr int nBricks = nRows * nCols;
 	Brick bricks[nBricks];
 	Rect walls;
+	int nLives = 3;
+	float getReadyTime = 2.0f;
+	float currWaitedTime = 0.0f;
 
 	bool gameStarted = false;
 	bool gameEnded = false;
+
+	GameState gameState = GameState::gameStart;
+
+	Sound brickHitSound;
+	Sound padHitSound;
+	Sound gameOverSound;
+	Sound readySound;
 	/********************************/
 };

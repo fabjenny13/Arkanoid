@@ -6,10 +6,13 @@
 class Ball
 {
 private:
+	float radius = 7.0f;
+	float speed = 400.0f;
 	Vec2 pos;
 	Vec2 vel;
-	float radius = 7.0f;
 	Rect rect;
+
+	Vec2 resetPos;
 
 public:
 	Ball() = default;
@@ -22,4 +25,6 @@ public:
 	Rect GetRect() const;
 	Vec2 GetVelocity() const;
 	Vec2 GetPosition() const;
+	void SetDirection(Vec2& dir);
+	void ResetPosition();
 };

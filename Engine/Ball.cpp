@@ -1,12 +1,14 @@
 #include "Ball.h"
 #include "SpriteCodex.h"
 
-Ball::Ball(Vec2 pos, Vec2 vel)
+Ball::Ball(Vec2 pos, Vec2 dir)
 	:
 	pos(pos),
-	vel(vel),
 	rect(pos, radius, radius)
+
 {
+	SetDirection(dir);
+	resetPos = pos;
 }
 
 void Ball::Draw(Graphics& gfx) const
@@ -59,6 +61,17 @@ Vec2 Ball::GetPosition() const
 {
 	return pos;
 }
+
+void Ball::SetDirection(Vec2& dir)
+{
+	vel =  dir.GetNormalized() * speed;
+}
+
+void Ball::ResetPosition()
+{
+	pos = resetPos;;
+}
+
 
 void Ball::ReboundX()
 {

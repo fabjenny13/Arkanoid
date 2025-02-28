@@ -36,3 +36,15 @@ float Vec2::GetLengthSq() const
 {
 	return x * x + y * y;
 }
+
+float Vec2::GetLength() const
+{
+	return sqrt(GetLengthSq());
+}
+
+
+Vec2& Vec2::GetNormalized() const
+{
+	float magnitude = GetLength();
+	return Vec2(x / magnitude, y / magnitude);
+}
